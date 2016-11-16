@@ -10,3 +10,10 @@
   remote_user: root
   roles:
     - godev
+    - dev
+
+- name: work stuff
+  remote_user: root
+  hosts: llnw_connected
+  roles:
+    - llnwvpn
