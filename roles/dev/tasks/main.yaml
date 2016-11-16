@@ -1,0 +1,9 @@
+- name: install jq
+  apt:
+    pkg: jq
+    state: installed
+
+- name: install python-jedi
+  apt:
+    pkg: python-jedi
+    state: installed

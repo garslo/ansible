@@ -1,0 +1,43 @@
+- name: check for existence of go
+  stat:
+    path: /usr/local/go/bin/go
+  register: go
+
+- name: install go
+  unarchive:
+    src: https://storage.googleapis.com/golang/go1.7.3.linux-amd64.tar.gz
+    dest: /usr/local
+    copy: no
+  when: go.stat.exists == False
+
+- name: symlink go binary
+  file:
+    src: /usr/local/go/bin/go
+    dest: /usr/local/bin/go
+    state: link
+
+- name: make scratch workspace
+  become_user: garslo
+  file:
+    path: /home/garslo/scratch-ws
+    state: directory
+
+- name: go get goimports
+  become_user: garslo
+  shell: GOPATH=/home/garslo/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
+
+- name: symlink goimports
+  file:
+    src: /home/garslo/scratch-ws/bin/goimports
+    dest: /usr/local/bin/goimports
+    state: link
+
+- name: go get gocode
+  become_user: garslo
+  shell: GOPATH=/home/garslo/scratch-ws /usr/local/go/bin/go get github.com/nsf/gocode
+
+- name: symlink gocode
+  file:
+    src: /home/garslo/scratch-ws/bin/gocode
+    dest: /usr/local/bin/gocode
+    state: link

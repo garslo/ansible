@@ -1,0 +1,9 @@
+- name: install vpnc
+  apt:
+    pkg: vpnc
+    state: installed
+
+- name: configure llnw vpn
+  template:
+    src: llnw_vpn
+    dest: /etc/vpnc/default.conf

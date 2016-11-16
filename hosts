@@ -1,0 +1,2 @@
+[devs]
+192.168.0.104:2222 ansible_connection=ssh 

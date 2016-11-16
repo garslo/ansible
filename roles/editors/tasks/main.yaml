@@ -1,0 +1,32 @@
+- name: install vim
+  apt:
+    pkg: vim
+    state: installed
+  tags: vim
+
+- name: configure vim
+  template:
+    src: vimrc
+    dest: /home/garslo/.vimrc
+  become_user: garslo
+  tags: vim
+
+- name: install emacs24-nox
+  apt:
+    pkg: emacs24-nox
+    state: installed
+  tags: emacs
+
+- name: check for emacs config
+  stat: path=/home/garslo/.emacs.d
+  register: emacs_config
+  tags: emacs
+
+- name: emacs config
+  git:
+    repo: https://github.com/garslo/emacs-config.git
+    dest: /home/garslo/.emacs.d
+    accept_hostkey: yes
+  become_user: garslo
+  when: emacs_config.stat.exists == False
+  tags: emacs

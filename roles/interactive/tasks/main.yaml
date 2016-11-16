@@ -1,0 +1,66 @@
+- name: Make sure we have a 'wheel' group
+  group:
+    name: wheel
+    state: present
+  tags: garslo_user
+
+- name: Allow 'wheel' group to have passwordless sudo
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%wheel'
+    line: '%wheel ALL=(ALL) NOPASSWD: ALL'
+  tags: garslo_user
+
+- name: setup garslo user
+  user:
+    name: garslo
+    groups: wheel
+    append: yes
+    state: present
+    createhome: yes
+    shell: /bin/bash
+  tags: garslo_user
+
+- name: setup authorized_keys for garslo
+  authorized_key:
+    user: garslo
+    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCopdrPG2JWDobWxwbaX4ZUOCfa6nukdbAbrmgXBCySeOAe6vVSZ3kWs6I7TTrDllXRH/QCa/8Pmj1V/f+Q/AA+YRPMxYgUJcGeM0xgnyL/Cq3kRlEHnZXJnjZiMBLov5tT76jceEsLOvgmu0wZ4S8H5UkozFdh09+S1npV7qV/ocWb6YywcyrahO3VXBEqDw5HTlAv4sMmnqrorbY9ies4wTAVDJ1XWmXBwjqSg5wKtVgL/exZ5nwMfUuU1WWvH56eMt6hBvUbAofiJYlIlB5otz/5ofLt+5by3QfKe09zayMkDNo3yt9avw7U1ryRmal8i/RUe7x7c2iRBzeAuuLn gslopsema@llnw-mac"
+  tags: garslo_user
+
+- name: install tmux
+  apt:
+    pkg: tmux
+    state: installed
+  tags: garslo_user
+
+- name: configure tmux
+  template:
+    src: tmux.conf
+    dest: /home/garslo/.tmux.conf
+  tags: garslo_user
+
+- name: install git
+  apt:
+    pkg: git
+    state: installed
+  tags: garslo_user
+
+- name: configure git
+  template:
+    src: gitconfig
+    dest: /home/garslo/.gitconfig
+  tags: garslo_user
+
+- name: make scratch directory
+  become_user: garslo
+  file:
+    path: /home/garslo/scratch
+    state: directory
+  tags: garslo_user
+
+- name: set bashrc
+  become_user: garslo
+  template:
+    src: bashrc
+    dest: /home/garslo/.bashrc

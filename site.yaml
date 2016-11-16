@@ -1,0 +1,12 @@
+- name: common configuration
+  hosts: all
+  remote_user: root
+  roles:
+    - interactive
+    - editors
+
+- name: development environment configuration
+  hosts: devs
+  remote_user: root
+  roles:
+    - godev
