@@ -1,0 +1,54 @@
+- name: add private ssh key for llnw github
+  template:
+    src: llnw_github_private_key
+    dest: /home/garslo/.ssh/id_rsa
+
+- name: add public ssh key for llnw github
+  template:
+    src: llnw_github_private_key.pub
+    dest: /home/garslo/.ssh/id_rsa.pub
+
+- name: add llnw dev repo
+  apt_repository:
+    repo: deb http://repo.llnw.net/lama/dev/ubuntu/precise binary/
+    state: present
+
+- name: add cassandra repo
+  apt_repository:
+    repo: deb http://debian.datastax.com/community stable main
+    state: present
+
+- name: add percona mysql repo
+  apt_repository:
+    repo: deb http://repo.percona.com/apt trusty testing
+    state: present
+
+- name: install go-dev-tools
+  apt:
+    pkg: go-dev-tools
+    state: installed
+    force: yes
+
+- name: install cassandra
+  apt:
+    pkg: cassandra=1.2.19
+    state: installed
+    force: yes
+
+- name: install libjemalloc1
+  apt:
+    pkg: libjemalloc1
+    state: installed
+    force: yes
+
+- name: install percona mysql (tokudb)
+  apt:
+    pkg: percona-server-tokudb-5.7
+    state: installed
+    force: yes
+
+- name: install redis
+  apt:
+    pkg: redis-server
+    state: installed
+    force: yes

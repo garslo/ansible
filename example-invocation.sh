@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook -i hosts site.yaml
+ansible-playbook --limit 10.221.210.196 -i hosts site.yaml

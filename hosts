@@ -1,9 +1,13 @@
 [devs]
 192.168.0.104:2222 ansible_user=root
 garslo.net:2234 ansible_user=root
+10.221.210.246 ansible_user=root
+10.221.210.196 ansible_user=root
 
 [llnw_connected]
 192.168.0.104:2222 ansible_user=root
+10.221.210.246 ansible_user=root
+10.221.210.196 ansible_user=root
 
 [webservers]
 garslo.net:2234 ansible_user=root

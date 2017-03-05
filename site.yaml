@@ -17,3 +17,4 @@
   hosts: llnw_connected
   roles:
     - llnwvpn
+    - llnwdev

@@ -11,9 +11,12 @@
   become_user: garslo
   tags: vim
 
-- name: install emacs24-nox
+- apt_repository:
+    repo: ppa:kelleyk/emacs
+
+- name: install emacs25-nox
   apt:
-    pkg: emacs24-nox
+    pkg: emacs25-nox
     state: installed
   tags: emacs
 
@@ -30,3 +33,6 @@
   become_user: garslo
   when: emacs_config.stat.exists == False
   tags: emacs
+
+- name: ensure .emacs.d is owned by garslo
+  command: chown -R garslo:garslo /home/garslo/.emacs.d
