@@ -52,3 +52,10 @@
     pkg: redis-server
     state: installed
     force: yes
+
+- name: make /var/run/lama
+  file:
+    path: /var/run/lama
+    state: directory
+    owner: garslo
+    group: garslo
