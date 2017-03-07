@@ -41,3 +41,13 @@
     src: /home/garslo/scratch-ws/bin/gocode
     dest: /usr/local/bin/gocode
     state: link
+
+- name: go get guru
+  become_user: garslo
+  shell: GOPATH=/home/garslo/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/guru
+
+- name: symlink guru
+  file:
+    src: /home/garslo/scratch-ws/bin/guru
+    dest: /usr/local/bin/guru
+    state: link

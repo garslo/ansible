@@ -34,11 +34,11 @@
     key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3fskEj5w9e7PFv5vFvulbqijdJ/sOB7+45VxqngqHyihFkh+nOkTbvy+3tWbAl8223Ri7CPurrxmZ5L72ZkxwodVRMjayNpixAWqlGqfsar809W18J6BbJwr25b0rbIcSFSnmzTbm77vLjeuKEaOtByfJhBT63tr/Don6JV/I59NrJiAamBivRYG/rFqxAurxO5MQjsHPSYogWbvsiTnb6atTbaKt8nHFOF0nhgKBWrEophs7BucIUsPpaexPeUF2t8T9DuHfPTYfvkwNc6zcmv93GktVOSF3RmR4YVsqB1fMHaM8SueIWyasRDrgku0xSnrrKJ9DcjrEBOLhCARx garslo@home-office"
   tags: garslo_user
 
-- name: install tmux
-  apt:
-    pkg: tmux
-    state: installed
-  tags: garslo_user
+- name: install some packages
+  action: apt pkg={{item}} state=installed
+  with_items:
+    - tmux
+    - htop
 
 - name: configure tmux
   template:
@@ -55,6 +55,7 @@
   apt:
     pkg: git
     state: installed
+    force: yes
   tags: garslo_user
 
 - name: configure git

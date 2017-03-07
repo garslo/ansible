@@ -41,9 +41,15 @@
     state: installed
     force: yes
 
-- name: install percona mysql (tokudb)
+# - name: install percona mysql (tokudb)
+#   apt:
+#     pkg: percona-server-tokudb-5.6
+#     state: installed
+#     force: yes
+
+- name: install mysql
   apt:
-    pkg: percona-server-tokudb-5.7
+    pkg: mysql-server-5.5
     state: installed
     force: yes
 
