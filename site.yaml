@@ -1,23 +1,17 @@
 - name: common configuration
   hosts: all
-  vars:
-    username: garslo
   roles:
     - interactive
     - editors
 
 - name: development environment configuration
   hosts: devs
-  vars:
-    username: garslo
   roles:
     - godev
     - dev
 
 - name: work stuff
   hosts: llnw_connected
-  vars:
-    username: garslo
   roles:
     - llnwvpn
     - llnwdev

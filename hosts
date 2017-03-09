@@ -1,14 +1,14 @@
 [devs]
-192.168.0.104:2222 ansible_user=root
-garslo.net:2234 ansible_user=root
-10.32.19.93 ansible_user=root
+192.168.0.104:2222 ansible_user=root username=garslo
+garslo.net:2234 ansible_user=root username=garslo
+10.32.19.93 ansible_user=root username=garslo
 
 [llnw_connected]
-192.168.0.104:2222 ansible_user=root
-10.32.19.93 ansible_user=root
+192.168.0.104:2222 ansible_user=root username=garslo
+10.32.19.93 ansible_user=root username=garslo
 
 [webservers]
-garslo.net:2234 ansible_user=root
+garslo.net:2234 ansible_user=root username=garslo
 
 [testing]
-localhost:2222 ansible_user=root
+localhost:2222 ansible_user=root username=garslo
