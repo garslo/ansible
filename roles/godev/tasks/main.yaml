@@ -18,20 +18,35 @@
     path: /home/{{ username }}/scratch-ws
     state: directory
 
+- name: check if goimports exits
+  stat: path=/usr/local/bin/goimports
+  register: goimports
+
+- name: check if gocode exits
+  stat: path=/usr/local/bin/gocode
+  register: gocode
+
+- name: check if guru exits
+  stat: path=/usr/local/bin/guru
+  register: guru
+
 - name: go get goimports
   become: yes
   become_user: "{{ username }}"
   shell: GOPATH=/home/{{ username }}/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
   notify: symlink goimports
+  when: goimports.stat.exists == False
 
 - name: go get gocode
   become: yes
   become_user: "{{ username }}"
   shell: GOPATH=/home/{{ username }}/scratch-ws /usr/local/go/bin/go get github.com/nsf/gocode
   notify: symlink gocode
+  when: gocode.stat.exists == False
 
 - name: go get guru
   become: yes
   become_user: "{{ username }}"
   shell: GOPATH=/home/{{ username }}/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/guru
   notify: symlink guru
+  when: guru.stat.exists == False
