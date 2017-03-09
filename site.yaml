@@ -1,20 +1,23 @@
 - name: common configuration
   hosts: all
-  remote_user: root
+  vars:
+    username: garslo
   roles:
     - interactive
     - editors
 
 - name: development environment configuration
   hosts: devs
-  remote_user: root
+  vars:
+    username: garslo
   roles:
     - godev
     - dev
 
 - name: work stuff
-  remote_user: root
   hosts: llnw_connected
+  vars:
+    username: garslo
   roles:
     - llnwvpn
     - llnwdev

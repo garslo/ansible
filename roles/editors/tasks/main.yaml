@@ -7,12 +7,14 @@
 - name: configure vim
   template:
     src: vimrc
-    dest: /home/garslo/.vimrc
-  become_user: garslo
+    dest: /home/{{ username }}/.vimrc
+  become: yes
+  become_user: "{{ username }}"
   tags: vim
 
 - apt_repository:
     repo: ppa:kelleyk/emacs
+    state: present
 
 - name: install emacs25-nox
   apt:
@@ -21,18 +23,15 @@
   tags: emacs
 
 - name: check for emacs config
-  stat: path=/home/garslo/.emacs.d
+  stat: path=/home/{{ username }}/.emacs.d
   register: emacs_config
   tags: emacs
 
 - name: emacs config
   git:
-    repo: https://github.com/garslo/emacs-config.git
-    dest: /home/garslo/.emacs.d
+    repo: https://github.com/{{ username }}/emacs-config.git
+    dest: /home/{{ username }}/.emacs.d
     accept_hostkey: yes
-  become_user: garslo
+  become: yes
+  become_user: "{{ username }}"
   when: emacs_config.stat.exists == False
-  tags: emacs
-
-- name: ensure .emacs.d is owned by garslo
-  command: chown -R garslo:garslo /home/garslo/.emacs.d

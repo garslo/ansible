@@ -9,45 +9,29 @@
     dest: /usr/local
     copy: no
   when: go.stat.exists == False
-
-- name: symlink go binary
-  file:
-    src: /usr/local/go/bin/go
-    dest: /usr/local/bin/go
-    state: link
+  notify: symlink go binary
 
 - name: make scratch workspace
-  become_user: garslo
+  become: yes
+  become_user: "{{ username }}"
   file:
-    path: /home/garslo/scratch-ws
+    path: /home/{{ username }}/scratch-ws
     state: directory
 
 - name: go get goimports
-  become_user: garslo
-  shell: GOPATH=/home/garslo/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
-
-- name: symlink goimports
-  file:
-    src: /home/garslo/scratch-ws/bin/goimports
-    dest: /usr/local/bin/goimports
-    state: link
+  become: yes
+  become_user: "{{ username }}"
+  shell: GOPATH=/home/{{ username }}/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports
+  notify: symlink goimports
 
 - name: go get gocode
-  become_user: garslo
-  shell: GOPATH=/home/garslo/scratch-ws /usr/local/go/bin/go get github.com/nsf/gocode
-
-- name: symlink gocode
-  file:
-    src: /home/garslo/scratch-ws/bin/gocode
-    dest: /usr/local/bin/gocode
-    state: link
+  become: yes
+  become_user: "{{ username }}"
+  shell: GOPATH=/home/{{ username }}/scratch-ws /usr/local/go/bin/go get github.com/nsf/gocode
+  notify: symlink gocode
 
 - name: go get guru
-  become_user: garslo
-  shell: GOPATH=/home/garslo/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/guru
-
-- name: symlink guru
-  file:
-    src: /home/garslo/scratch-ws/bin/guru
-    dest: /usr/local/bin/guru
-    state: link
+  become: yes
+  become_user: "{{ username }}"
+  shell: GOPATH=/home/{{ username }}/scratch-ws /usr/local/go/bin/go get golang.org/x/tools/cmd/guru
+  notify: symlink guru

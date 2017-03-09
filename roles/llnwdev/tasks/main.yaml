@@ -1,12 +1,12 @@
 - name: add private ssh key for llnw github
   template:
     src: llnw_github_private_key
-    dest: /home/garslo/.ssh/id_rsa
+    dest: /home/{{ username }}/.ssh/id_rsa
 
 - name: add public ssh key for llnw github
   template:
     src: llnw_github_private_key.pub
-    dest: /home/garslo/.ssh/id_rsa.pub
+    dest: /home/{{ username }}/.ssh/id_rsa.pub
 
 - name: add llnw dev repo
   apt_repository:
@@ -63,5 +63,5 @@
   file:
     path: /var/run/lama
     state: directory
-    owner: garslo
-    group: garslo
+    owner: "{{ username }}"
+    group: "{{ username }}"

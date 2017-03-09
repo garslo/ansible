@@ -1,0 +1,23 @@
+- name: symlink gocode
+  file:
+    src: /home/{{ username }}/scratch-ws/bin/gocode
+    dest: /usr/local/bin/gocode
+    state: link
+
+- name: symlink guru
+  file:
+    src: /home/{{ username }}/scratch-ws/bin/guru
+    dest: /usr/local/bin/guru
+    state: link
+
+- name: symlink goimports
+  file:
+    src: /home/{{ username }}/scratch-ws/bin/goimports
+    dest: /usr/local/bin/goimports
+    state: link
+
+- name: symlink go binary
+  file:
+    src: /usr/local/go/bin/go
+    dest: /usr/local/bin/go
+    state: link
