@@ -159,14 +159,13 @@ timer_prompt()
 {
   status=$?
   local size=16
-  calc_elapsed
   if [ "${#PWD}" -gt $size ]
   then
     pwd_string="${PWD: -$size}"
   else
     pwd_string="$(printf "%${size}s" $PWD)"
   fi
-  PS1="$bold$elapsed $(vpn_indicator) $pwd_string $status\\$ $plain"
+  PS1="$bold $pwd_string $status\\$ $plain"
   begin=
 }
 
