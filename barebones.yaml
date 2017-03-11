@@ -5,5 +5,3 @@
   roles:
     - interactive
     - editors
-    - godev
-    - dev
