@@ -29,7 +29,7 @@
 
 - name: emacs config
   git:
-    repo: https://github.com/{{ username }}/emacs-config.git
+    repo: https://github.com/garslo/emacs-config.git
     dest: /home/{{ username }}/.emacs.d
     accept_hostkey: yes
   become: yes
