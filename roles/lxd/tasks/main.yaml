@@ -13,7 +13,12 @@
     groups: lxd
     append: true
 
+- name: check if lxdock is installed
+  stat: path=/home/{{ username }}/.local/bin/lxdock
+  register: lxdock
+
 - name: install lxdock
   pip: executable=/usr/bin/pip3 name=lxdock
   become_user: "{{ username }}"
   become: yes
+  when: lxdock.stat.exists == False
