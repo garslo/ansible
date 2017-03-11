@@ -8,56 +8,30 @@
     src: llnw_github_private_key.pub
     dest: /home/{{ username }}/.ssh/id_rsa.pub
 
-- name: add llnw dev repo
-  apt_repository:
-    repo: deb http://repo.llnw.net/lama/dev/ubuntu/precise binary/
-    state: present
+- name: add apt repos
+  action: apt_repository repo={{ item }} state=present
+  with_items:
+    - deb http://repo.llnw.net/lama/dev/ubuntu/precise binary/
+    - deb http://debian.datastax.com/community stable main
+    - deb http://repo.percona.com/apt trusty testing
 
-- name: add cassandra repo
-  apt_repository:
-    repo: deb http://debian.datastax.com/community stable main
-    state: present
+- name: install dev packages
+  action: apt pkg={{ item }} state=installed force=yes
+  with_items:
+    - go-dev-tools
+    - cassandra=1.2.19
+    - libjemalloc1
+    # - percona-server-tokudb-5.6
+    - mysql-server-5.5
+    - libssl-dev
+    - redis-server
 
-- name: add percona mysql repo
-  apt_repository:
-    repo: deb http://repo.percona.com/apt trusty testing
-    state: present
-
-- name: install go-dev-tools
-  apt:
-    pkg: go-dev-tools
-    state: installed
-    force: yes
-
-- name: install cassandra
-  apt:
-    pkg: cassandra=1.2.19
-    state: installed
-    force: yes
-
-- name: install libjemalloc1
-  apt:
-    pkg: libjemalloc1
-    state: installed
-    force: yes
-
-# - name: install percona mysql (tokudb)
-#   apt:
-#     pkg: percona-server-tokudb-5.6
-#     state: installed
-#     force: yes
-
-- name: install mysql
-  apt:
-    pkg: mysql-server-5.5
-    state: installed
-    force: yes
-
-- name: install redis
-  apt:
-    pkg: redis-server
-    state: installed
-    force: yes
+- name: stop some daemon services
+  action: service name={{ item }} state=stopped
+  with_items:
+    - cassandra
+    - mysql
+    - redis-server
 
 - name: make /var/run/lama
   file:

@@ -1,0 +1,11 @@
+- name: playbook for an llnwdev box
+  hosts: all
+  vars:
+    - username: garslo
+  roles:
+    - interactive
+    - editors
+    - godev
+    - dev
+    - llnwvpn
+    - llnwdev

@@ -1,0 +1,9 @@
+- name: playbook for a generic dev box
+  hosts: all
+  vars:
+    - username: garslo
+  roles:
+    - interactive
+    - editors
+    - godev
+    - dev

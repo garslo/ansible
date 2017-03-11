@@ -7,3 +7,11 @@
   apt:
     pkg: python-jedi
     state: installed
+
+- name: mount /tmp as tmpfs
+  mount:
+    name: /tmp
+    src: 'tmpfs'
+    state: mounted
+    fstype: tmpfs
+    opts: 'size=4G'
