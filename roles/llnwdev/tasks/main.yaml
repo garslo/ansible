@@ -1,13 +1,3 @@
-- name: add private ssh key for llnw github
-  template:
-    src: llnw_github_private_key
-    dest: /home/{{ username }}/.ssh/id_rsa
-
-- name: add public ssh key for llnw github
-  template:
-    src: llnw_github_private_key.pub
-    dest: /home/{{ username }}/.ssh/id_rsa.pub
-
 - name: add apt repos
   action: apt_repository repo={{ item }} state=present
   with_items:
