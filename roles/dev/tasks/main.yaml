@@ -1,12 +1,8 @@
-- name: install jq
-  apt:
-    pkg: jq
-    state: installed
-
-- name: install python-jedi
-  apt:
-    pkg: python-jedi
-    state: installed
+- name: install dev packages
+  action: apt pkg={{ item }} state=installed force=yes
+  with_items:
+    - jq
+    - python-jedi
 
 - name: mount /tmp as tmpfs
   mount:
