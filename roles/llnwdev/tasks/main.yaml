@@ -29,3 +29,12 @@
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: clone go-lmd-ws
+  become: yes
+  become_user: "{{ username }}"
+  git:
+    repo: git@github.llnw.net:lama/go-lmd-ws.git
+    dest: /home/{{ username }}/dev/llnw/go-lmd-ws
+    accept_hostkey: yes
+    update: yes
