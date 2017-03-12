@@ -1,3 +1,3 @@
 #!/bin/bash
 
-ansible-playbook --limit 10.221.210.196 -i hosts site.yaml
+ansible-playbook --limit localhost -i hosts --ask-vault-pass llnwdev.yaml

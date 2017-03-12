@@ -4,7 +4,7 @@
     state: installed
 
 - name: load llnw vpn secrets
-  include_vars: myvault.yaml
+  include_vars: llnw_vpn_vault.yaml
   no_log: true
 
 - name: configure llnw vpn
