@@ -12,3 +12,12 @@
   template:
     src: llnw_vpn
     dest: /etc/vpnc/default.conf
+
+- name: check if we are connected to the vpn
+  ignore_errors: true
+  command: pgrep vpnc
+  register: vpnc
+
+- name: connect to the vpn
+  command: vpnc-connect
+  when: vpnc.rc != 0
