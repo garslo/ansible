@@ -1,4 +1,5 @@
-IPSec gateway ra.llnw.com
-IPSec ID engineering
-IPSec secret llnw!
-Xauth username gslopsema@llnw.com
+IPSec gateway {{ llnw_vpn_secrets.gateway }}
+IPSec ID {{ llnw_vpn_secrets.id }}
+IPSec secret {{ llnw_vpn_secrets.secret }}
+Xauth username {{ llnw_vpn_secrets.username }}
+Xauth password {{ llnw_vpn_secrets.password }}

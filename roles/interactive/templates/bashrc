@@ -165,7 +165,7 @@ timer_prompt()
   else
     pwd_string="$(printf "%${size}s" $PWD)"
   fi
-  PS1="$bold $pwd_string $status\\$ $plain"
+  PS1="$bold $(vpn_indicator) $pwd_string $status\\$ $plain"
   begin=
 }
 

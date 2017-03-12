@@ -3,7 +3,12 @@
     pkg: vpnc
     state: installed
 
+- name: load llnw vpn secrets
+  include_vars: myvault.yaml
+  no_log: true
+
 - name: configure llnw vpn
+  no_log: true
   template:
     src: llnw_vpn
     dest: /etc/vpnc/default.conf
