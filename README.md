@@ -12,7 +12,7 @@ $ lxc exec test-ansible chown root:root /root/.ssh/authorized_keys
 $ lxc list | grep test-ansible | awk '{print $6}'
 <ip of test-ansible>
 $ echo <ip of test-ansible> >> hosts
-$ ansible-playbook --limit localhost -i hosts --ask-vault-pass llnwdev.yaml
+$ ansible-playbook --limit <ip of test-ansible> -i hosts --ask-vault-pass llnwdev.yaml
 ...
 ```
 
