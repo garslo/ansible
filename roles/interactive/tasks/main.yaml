@@ -27,7 +27,7 @@
 - name: setup authorized_keys for {{ username }} - 2
   authorized_key:
     user: "{{ username }}"
-    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC3fskEj5w9e7PFv5vFvulbqijdJ/sOB7+45VxqngqHyihFkh+nOkTbvy+3tWbAl8223Ri7CPurrxmZ5L72ZkxwodVRMjayNpixAWqlGqfsar809W18J6BbJwr25b0rbIcSFSnmzTbm77vLjeuKEaOtByfJhBT63tr/Don6JV/I59NrJiAamBivRYG/rFqxAurxO5MQjsHPSYogWbvsiTnb6atTbaKt8nHFOF0nhgKBWrEophs7BucIUsPpaexPeUF2t8T9DuHfPTYfvkwNc6zcmv93GktVOSF3RmR4YVsqB1fMHaM8SueIWyasRDrgku0xSnrrKJ9DcjrEBOLhCARx {{ username }}@home-office"
+    key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDCNhVQGT1LmDHxUyj/FcrnOIBo0bUrgrgVUcT3DsB5d1820ZGndqHhXBhg1vaePJ8r4JHF0u9UVsAMUk3sd8Po2LgsyZceb8bLWRRMEgOUPEVT2nMRfdn5pj0SX/y/qOCClZan81T58UMKEq7u0p8hDiuHXNGELzue//btlk1IYp5/cnhMikdLevWnb4drtfeQUcKSEUMsEAjGem2jG2CWMquTDr0P9vXOOuCoUOhQfFeyrOIpMxHqugzNCYi/IKP2dRzsE01EmispWavw6B0OFzuPuBaMK2is0e7WVcotDoAw1H+2MTi7GPdZJoNxIpe7i0UFh1NR6sL36jw4c5HT gslopsema@llnw.com"
 
 - name: install some packages
   action: apt pkg={{item}} state=installed
