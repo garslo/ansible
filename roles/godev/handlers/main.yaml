@@ -4,6 +4,12 @@
     dest: /usr/local/bin/gocode
     state: link
 
+- name: symlink godef
+  file:
+    src: /home/{{ username }}/scratch-ws/bin/godef
+    dest: /usr/local/bin/godef
+    state: link
+
 - name: symlink guru
   file:
     src: /home/{{ username }}/scratch-ws/bin/guru

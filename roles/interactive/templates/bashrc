@@ -159,7 +159,7 @@ timer_prompt()
 {
   status=$?
   local size=16
-  if [ "${#PWD}" -gt $size ]
+  if [ $(echo -n $PWD | wc -c) -gt $size ]
   then
     pwd_string="${PWD: -$size}"
   else

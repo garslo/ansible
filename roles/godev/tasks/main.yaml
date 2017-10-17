@@ -18,17 +18,28 @@
     path: /home/{{ username }}/scratch-ws
     state: directory
 
-- name: check if goimports exits
+- name: check if goimports exists
   stat: path=/usr/local/bin/goimports
   register: goimports
 
-- name: check if gocode exits
+- name: check if gocode exists
   stat: path=/usr/local/bin/gocode
   register: gocode
 
-- name: check if guru exits
+- name: check if guru exists
   stat: path=/usr/local/bin/guru
   register: guru
+
+- name: check if godef exists
+  stat: path=/usr/local/bin/godef
+  register: godef
+
+- name: go get godef
+  become: yes
+  become_user: "{{ username }}"
+  shell: GOPATH=/home/{{ username }}/scratch-ws /usr/local/go/bin/go get github.com/rogpeppe/godef
+  notify: symlink godef
+  when: godef.stat.exists == False
 
 - name: go get goimports
   become: yes
