@@ -3,6 +3,10 @@
   with_items:
     - jq
     - python-jedi
+    - python-pip
+    - python-virtualenv
+    - build-essential
+    - libssl-dev
 
 - name: mount /tmp as tmpfs
   mount:

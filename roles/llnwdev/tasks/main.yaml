@@ -37,4 +37,4 @@
     repo: git@github.llnw.net:lama/go-lmd-ws.git
     dest: /home/{{ username }}/dev/llnw/go-lmd-ws
     accept_hostkey: yes
-    update: yes
+    update: no
