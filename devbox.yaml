@@ -1,9 +1,21 @@
+- hosts: all
+  gather_facts: False
+
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
 - name: playbook for a generic dev box
   hosts: all
   vars:
     - username: garslo
+    - clojure_versions: ["1.5.1"]
+      clojure_default_version: "1.5.1"
+      clojure_leiningen_version: "2.3.4"
   roles:
     - interactive
     - editors
     - godev
     - dev
+    - infOpen.openjdk-jdk
+    - yashible.lein
