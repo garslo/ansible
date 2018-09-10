@@ -17,5 +17,5 @@
     - editors
     - godev
     - dev
-    - infOpen.openjdk-jdk
-    - yashible.lein
+    # - infOpen.openjdk-jdk
+    # - yashible.lein

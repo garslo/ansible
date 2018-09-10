@@ -1,18 +1,34 @@
 - name: add apt repos
   action: apt_repository repo={{ item }} state=present
   with_items:
-    - deb http://repo.llnw.net/lama/dev/ubuntu/precise binary/
+    - deb http://repo.llnw.net/lama/dev/ubuntu/xenial binary/
     - deb http://debian.datastax.com/community stable main
-    - deb http://repo.percona.com/apt trusty testing
+    - deb http://repo.percona.com/apt xenial testing
+
+- name: check if python-support is installed
+  command: dpkg-query -W python-support
+  register: python_support
+
+- name: download python-support
+  get_url:
+    url="http://launchpadlibrarian.net/109052632/python-support_1.0.15_all.deb"
+    dest="/tmp/python-support_1.0.15_all.deb"
+  when: python_support.rc == 1
+
+- name: install python_support
+  apt: deb="/tmp/python-support_1.0.15_all.deb"
+  sudo: true
+  when: python_support.rc == 1
 
 - name: install dev packages
   action: apt pkg={{ item }} state=installed force=yes
   with_items:
-    - go-dev-tools
+    - build-essential
     - cassandra=1.2.19
     - libjemalloc1
-    # - percona-server-tokudb-5.6
-    - mysql-server-5.5
+    - percona-server-tokudb-5.7
+    #- percona-server-tokudb-5.6
+    #- mysql-server-5.5
     - libssl-dev
     - redis-server
 
@@ -29,12 +45,3 @@
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
-
-- name: clone go-lmd-ws
-  become: yes
-  become_user: "{{ username }}"
-  git:
-    repo: git@github.llnw.net:lama/go-lmd-ws.git
-    dest: /home/{{ username }}/dev/llnw/go-lmd-ws
-    accept_hostkey: yes
-    update: yes
