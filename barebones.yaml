@@ -1,7 +1,0 @@
-- name: playbook for a barebones box
-  hosts: all
-  vars:
-    - username: garslo
-  roles:
-    - interactive
-    - editors

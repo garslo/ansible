@@ -1,8 +1,0 @@
-- name: playbook for an lxd host box
-  hosts: all
-  vars:
-    - username: garslo
-  roles:
-    - interactive
-    - editors
-    - lxd
