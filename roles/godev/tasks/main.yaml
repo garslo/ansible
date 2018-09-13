@@ -1,15 +1,26 @@
 - name: check for existence of go
   stat:
-    path: /usr/local/bin/go
+    path: /usr/local/go/bin/go
   register: go
 
 - name: install go
   unarchive:
-    src: https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+    src: https://dl.google.com/go/go1.10.4.linux-amd64.tar.gz
     dest: /usr/local
     copy: no
   when: go.stat.exists == False
-  notify: symlink go binary
+
+- name: symlink go binary
+  file:
+    src: /usr/local/go/bin/go
+    dest: /usr/local/bin/go
+    state: link
+
+- name: symlink gofmt binary
+  file:
+    src: /usr/local/go/bin/gofmt
+    dest: /usr/local/bin/gofmt
+    state: link
 
 - name: make scratch workspace
   become: yes

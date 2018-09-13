@@ -1,5 +1,0 @@
-- src: rfhayashi.docker-vagrant
-  version: '0.1'
-
-- src: rfhayashi.kitchen
-  version: '0.2.1'

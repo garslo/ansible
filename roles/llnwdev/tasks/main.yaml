@@ -2,35 +2,47 @@
   action: apt_repository repo={{ item }} state=present
   with_items:
     - deb http://repo.llnw.net/lama/dev/ubuntu/xenial binary/
+    - deb http://repo.llnw.net/lama/dev/ubuntu/precise binary/
     - deb http://debian.datastax.com/community stable main
     - deb http://repo.percona.com/apt xenial testing
-
-- name: check if python-support is installed
-  command: dpkg-query -W python-support
-  register: python_support
 
 - name: download python-support
   get_url:
     url="http://launchpadlibrarian.net/109052632/python-support_1.0.15_all.deb"
     dest="/tmp/python-support_1.0.15_all.deb"
-  when: python_support.rc == 1
 
 - name: install python_support
   apt: deb="/tmp/python-support_1.0.15_all.deb"
   sudo: true
-  when: python_support.rc == 1
 
 - name: install dev packages
   action: apt pkg={{ item }} state=installed force=yes
   with_items:
     - build-essential
+    - openjdk-8-jre-headless
     - cassandra=1.2.19
     - libjemalloc1
     - percona-server-tokudb-5.7
-    #- percona-server-tokudb-5.6
-    #- mysql-server-5.5
     - libssl-dev
     - redis-server
+    - lama-grpclib
+    - libprotobuf7
+    - protobuf-compiler
+
+- name: disable hugepages
+  command: "echo never > /sys/kernel/mm/transparent_hugepage/enabled"
+
+- name: disable hugepages defrag
+  command: "echo never > /sys/kernel/mm/transparent_hugepage/defrag"
+
+- name: enable tokudb
+  command: ps_tokudb_admin --enable
+  ignore_errors: yes
+
+- name: use java8
+  alternatives:
+    name: java
+    path: /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 
 - name: stop some daemon services
   action: service name={{ item }} state=stopped
@@ -45,3 +57,27 @@
     state: directory
     owner: "{{ username }}"
     group: "{{ username }}"
+
+- name: clone go-lmd-ws
+  become: yes
+  become_user: "{{ username }}"
+  git:
+    repo: git@github.llnw.net:lama/go-lmd-ws.git
+    dest: /home/{{ username }}/dev/llnw/go-lmd-ws
+    accept_hostkey: yes
+    update: no
+
+- name: set sysctl file limits
+  copy:
+    src: 50-fs.conf
+    dest: /etc/sysctl.d
+
+- name: set shell file limits
+  copy:
+    src: 91-nofiles.conf
+    dest: /etc/security/limits.d
+
+- name: set mariadb filehandle limits
+  copy:
+    src: limits.conf
+    dest: /lib/systemd/system/mariadb.service.d

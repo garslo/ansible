@@ -21,9 +21,3 @@
     src: /home/{{ username }}/scratch-ws/bin/goimports
     dest: /usr/local/bin/goimports
     state: link
-
-- name: symlink go binary
-  file:
-    src: /usr/local/go/bin/go
-    dest: /usr/local/bin/go
-    state: link
