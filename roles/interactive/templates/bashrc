@@ -173,4 +173,6 @@ set_begin
 trap set_begin DEBUG
 PROMPT_COMMAND=timer_prompt
 
+export PATH=$PATH:/usr/sbin
+
 ## END

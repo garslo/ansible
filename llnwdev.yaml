@@ -1,5 +1,13 @@
+- hosts: all
+  gather_facts: False
+  sudo: yes
+  tasks:
+  - name: install python 2
+    raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+
 - name: playbook for an llnwdev box
   hosts: all
+  sudo: yes
   vars:
     - username: garslo
   roles:
