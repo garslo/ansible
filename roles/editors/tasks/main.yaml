@@ -22,16 +22,12 @@
     state: installed
   tags: emacs
 
-- name: check for emacs config
-  stat: path=/home/{{ username }}/.emacs.d
-  register: emacs_config
-  tags: emacs
-
 - name: emacs config
+  tags: emacs
   git:
     repo: https://github.com/garslo/emacs-config.git
     dest: /home/{{ username }}/.emacs.d
     accept_hostkey: yes
+    version: master
   become: yes
   become_user: "{{ username }}"
-  when: emacs_config.stat.exists == False

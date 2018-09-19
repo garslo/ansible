@@ -81,3 +81,9 @@
   copy:
     src: limits.conf
     dest: /lib/systemd/system/mariadb.service.d
+
+- name: include mkvarrun helper script
+  copy:
+    src: mkvarrun.sh
+    dest: /home/{{ username }}/bin
+    mode: "a+x"
