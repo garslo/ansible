@@ -60,6 +60,23 @@
     src: gitconfig
     dest: /home/{{ username }}/.gitconfig
 
+- name: add git hooks directory
+  become: yes
+  become_user: "{{ username }}"
+  file:
+    path: /home/{{ username }}/.git-templates/hooks
+    state: directory
+
+- name: add git hooks
+  become: yes
+  become_user: "{{ username }}"
+  template:
+    dest: /home/{{ username }}/.git-templates/hooks/{{ item }}
+    src: "{{ item }}"
+    mode: 0755
+  with_items:
+    - prepare-commit-msg
+
 - name: make scratch directory
   become: yes
   become_user: "{{ username }}"

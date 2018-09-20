@@ -7,3 +7,5 @@
         br = branch
         co = checkout
         st = status
+[init]
+        templatedir = ~/.git-templates
