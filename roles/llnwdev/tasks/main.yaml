@@ -87,5 +87,3 @@
     src: mkvarrun.sh
     dest: /home/{{ username }}/bin
     mode: "a+x"
-
-- name: install user-level git hooks
