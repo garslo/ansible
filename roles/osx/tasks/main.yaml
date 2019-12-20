@@ -1,0 +1,34 @@
+- name: install common osx apps with brew
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - wget
+    - jq
+    - wrk
+    - go
+
+
+- name: install common osx apps with brew cask
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - emacs
+    - spotify
+    - r
+    - spectacle
+    - google-chrome
+    - virtualbox
+    - iterm2
+    - slack
+
+
+- name: emacs config
+  tags: emacs
+  git:
+    repo: https://github.com/garslo/emacs-config.git
+    dest: /Users/{{ username }}/.emacs.d
+    accept_hostkey: yes
+    version: master

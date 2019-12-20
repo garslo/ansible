@@ -1,0 +1,8 @@
+- name: playbook for osx dev machine
+  hosts: all
+  vars:
+    - username: gslopsema
+  become: yes
+  become_user: "{{ username }}"
+  roles:
+    - osx
