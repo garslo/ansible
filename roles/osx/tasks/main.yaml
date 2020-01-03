@@ -8,6 +8,7 @@
     - jq
     - wrk
     - go
+    - awscli
 
 
 - name: install common osx apps with brew cask
